@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ToDo = props => {
+const Todo = props => {
     return (
         <div onClick={() => props.toggleItem(props.item.id)} className={`item${props.item.completed ? 'finished' : ''}`}>
             <p>{props.items.task}</p>
@@ -8,4 +8,4 @@ const ToDo = props => {
     )
 }
 
-export default ToDo
+export default Todo
