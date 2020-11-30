@@ -1,0 +1,42 @@
+.App {
+    margin: auto;
+    overflow-x: hidden;
+    padding: 20px;
+    text-align: center;
+    margin-top: 2%;
+    box-shadow: 0 10px 6px -6px #777;
+    background: #fcfafa;
+    color: #191414;
+    font-family: sans-serif;
+  }
+
+  .item {
+    font-size: 2.5rem;
+    color: #aa3232;
+    font-weight: 900;
+}
+
+.item.finished {
+    text-decoration: line-through;
+  }
+
+
+  h1 {
+      font-size: 4rem;
+      color: #1321e6;
+  }
+
+
+body {
+    background: #85f8f8;
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    overflow-x: hidden;
+  }
+  
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  
