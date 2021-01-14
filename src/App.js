@@ -1,84 +1,72 @@
-//used example from webguided project index.js
-
-import React from 'react';
-import TodoList from './components/TodoList'
-import TodoForm from './components/TodoForm'
-import './components/Todo.css'
-
-const list = [
-  {
-    task: 'Organize Garage',
-    id: 1528817077286,
-    completed: false
-  },
-  {
-    task: 'Bake Cookies',
-    id: 1528817084358,
-    completed: false
-  }
-];
-
+import React from "react";
+import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
 
 class App extends React.Component {
-
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      todoList: list
-    }
+      todos: [
+        {
+          title: "take out trash",
+          id: "123",
+          completed: false,
+        },
+      ],
+    };
   }
 
-  handleItemToggle = itemId => {
-    const newTodoList = this.state.todoList.map(item => {
-      if (item.id === itemId){
-        return {
-          ...item,
-          completed: !item.completed
-        }
-      } else {
-      return item
-      }    
-  });
-  this.setState({
-    todoList: newTodoList
-  })
-  }
-  
-  handleItemAdd = (taskName) => {
-    const task = {
-      name: taskName,
+  addItem = (e, item) => {
+    e.preventDefault();
+    const newItem = {
+      title: item,
       id: Date.now(),
-      completed: false
-    }
-    this.setState({
-      todoList: [this.state.todoList, task]
-    })
-  }
+      completed: false,
+    };
+    this.setState({ ...this.state, todos: [...this.state.todos, newItem] });
+  };
 
-  handleItemCompleted = () => {
-    const newToDo = this.state.todoList.filter (item => {
-      return(!item.completed)
+  // iterate through state to see if the onclick id matches the id in state, if it does...change 'completed' to true and put a line-through via css
+  toggleItem = (itemId) => {
+    this.setState({
+      todos: this.state.todos.map((item) => {
+        if (item.id === itemId) {
+          console.log("it changed");
+          return {
+            ...item,
+            completed: !item.completed,
+          };
+        } else {
+          return item;
+        }
+      }),
     });
-    this.setState({
-      todoList: newToDo
-    })
-  }
+  };
 
+  //if 'completed' is the opposite of true; keep it in state
+  clearCompleted = (e) => {
+    e.preventDefault();
+    this.setState({
+      todos: this.state.todos.filter((item) => !item.completed),
+    });
+  };
 
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
   // this component is going to take care of state, and any change handlers you need to work with your state
+
   render() {
+    // console.log(this.state.todos);
     return (
-      <div className='App'>
-      <div className='header'>
+      <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoForm handleItemAdd={this.handleItemAdd} />
-      </div>
-        <TodoList TodoList={this.state.todoList} handleItemCompleted={this.handleItemCompleted} handleItemToggle={this.handleItemtoggle} />
+        <TodoForm addItem={this.addItem} clearCompleted={this.clearCompleted} />
+
+        <TodoList allTodos={this.state.todos} toggleItem={this.toggleItem} />
       </div>
     );
   }
 }
+
 
 export default App;

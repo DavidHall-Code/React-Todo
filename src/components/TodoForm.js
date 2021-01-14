@@ -1,38 +1,46 @@
 //used example from webguided project ListForm.js
 
-import React from 'react'
-
+import React from "react";
 
 class TodoForm extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            inputValue: ''
-        }
-    }
-
-    handleChanges = e => {
-        this.setState({
-            inputValue: e.target.value
-        });
+  constructor() {
+    super();
+    this.state = {
+      item: "",
     };
+  }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.handleItemAdd(this.state.inputValue);
-        this.setState({
-            inputValue: ''
-        });
-    }
+  onChange = (e) => {
+    this.setState({
+      ...this.state,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-    render() {
-        return(
-            <form onSubmit={this.handleSubmit}>
-                <input type='text' name='name' value={this.state.inputValue} onChange={this.handleChanges} />
-                <button>Add a Task</button> 
-            </form>
-        );
-    }
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.props.addItem(e, this.state.item);
+    this.setState({ item: "" });
+  };
+
+  render() {
+    return (
+      <>
+        <form onSubmit={this.onSubmit}>
+          <input
+            name="item"
+            id="item"
+            type="text"
+            onChange={this.onChange}
+            value={this.state.item}
+          ></input>
+          <button>Add ToDo</button>
+          <button onClick={this.props.clearCompleted}>Clear Completed</button>
+        </form>
+      </>
+    );
+  }
 }
+
 
 export default TodoForm;

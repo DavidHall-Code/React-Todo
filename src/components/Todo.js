@@ -1,18 +1,21 @@
 //used example from webguided project item.js
 
-import React from 'react';
+import React from "react";
+import "./Todo.css";
 
-const Todo = props => {
-    const handleClick = () => {
-        props.handleItemToggle(props.item.task);
-    }
-
-    return(
-        <div onClick={handleClick} className={`item${props.item.completed ? 'complete' : ''} `}>
-            <p>{props.item.task}</p>
-
-        </div>
-    );
+//onClick toggles the item to completed
+//className creates line-through with css .item.completed
+const Todo = (props) => {
+  return (
+    <>
+      <div
+        onClick={() => props.toggleItem(props.tod.id)}
+        className={`item${props.tod.completed ? ` completed` : ""}`}
+      >
+        <p>{props.tod.title}</p>
+      </div>
+    </>
+  );
 };
 
 export default Todo;
